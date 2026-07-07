@@ -1,0 +1,77 @@
+{
+  "app": {
+    "name": "paymore-kiosk-log-agent",
+    "version": "1.0.0",
+    "environment": "production"
+  },
+  "logging": {
+    "level": "info",
+    "directory": "C:\\ProgramData\\Paymore\\KioskLogAgent\\logs",
+    "maxFiles": "30d",
+    "maxSize": "20m"
+  },
+  "scheduler": {
+    "dailyRunTime": "02:00",
+    "maxJitterMs": 3600000,
+    "uploadRetryIntervalMs": 300000,
+    "housekeepingIntervalMs": 3600000,
+    "runScanOnStart": true,
+    "gracefulShutdownTimeoutMs": 30000
+  },
+  "upload": {
+    "authEndpoint": "https://upload-api.paymore.internal/v1/kiosk/logs/authorize",
+    "staticToken": "your-static-token-here",
+    "timeoutMs": 30000,
+    "retry": {
+      "maxAttempts": 4,
+      "baseDelayMs": 1000,
+      "maxDelayMs": 30000,
+      "backoffMultiplier": 2,
+      "retryableStatusCodes": [408, 425, 429, 500, 502, 503, 504]
+    }
+  },
+  "http": {
+    "userAgent": "PaymoreKioskLogAgent/1.0.0",
+    "safeResponseBodyLogLimit": 512
+  },
+  "queue": {
+    "directory": "C:\\ProgramData\\Paymore\\KioskLogAgent\\queue"
+  },
+  "logSources": [
+    {
+      "name": "application",
+      "enabled": true,
+      "patterns": ["C:\\Paymore\\Kiosk\\logs\\application*.log"],
+      "excludePatterns": [],
+      "encoding": "utf8",
+      "readFromBeginning": false
+    },
+    {
+      "name": "system",
+      "enabled": true,
+      "patterns": ["C:\\Paymore\\Kiosk\\logs\\system*.log"],
+      "excludePatterns": [],
+      "encoding": "utf8",
+      "readFromBeginning": false
+    },
+    {
+      "name": "pos",
+      "enabled": true,
+      "patterns": ["C:\\Paymore\\Kiosk\\logs\\pos*.log"],
+      "excludePatterns": [],
+      "encoding": "utf8",
+      "readFromBeginning": false
+    },
+    {
+      "name": "crash",
+      "enabled": true,
+      "patterns": ["C:\\Paymore\\Kiosk\\crashes\\*.log"],
+      "excludePatterns": [],
+      "encoding": "utf8",
+      "readFromBeginning": false
+    }
+  ],
+  "telemetry": {
+    "enabled": false
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "keep": {
+    "days": true,
+    "amount": 30
+  },
+  "auditLog": "C:\\ProgramData\\Paymore\\KioskLogAgent\\logs/errors/.bc20b6751d39082a8abc2ee1276c55203269cff9-audit.json",
+  "files": [
+    {
+      "date": 1783329970767,
+      "name": "C:\\ProgramData\\Paymore\\KioskLogAgent\\logs/errors/paymore-kiosk-log-agent-error-2026-07-06.log",
+      "hash": "5691be4e2f1f31e9ae65f3b69aba00a7de80be2a661a526b1c8bd15d599b9ffb"
+    }
+  ],
+  "hashType": "sha256"
+}
