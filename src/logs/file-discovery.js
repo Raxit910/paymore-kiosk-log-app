@@ -10,13 +10,21 @@ export async function discoverFiles(source) {
   const logger = getLogger();
 
   try {
-    const entries = await fg(source.patterns.map(normalizeSafePath), {
+    // fast-glob strictly requires forward slashes, even on Windows
+    const fgPatterns = source.patterns.map((p) =>
+      normalizeSafePath(p).replace(/\\/g, '/')
+    );
+    const fgIgnores = source.excludePatterns.map((p) =>
+      normalizeSafePath(p).replace(/\\/g, '/')
+    );
+
+    const entries = await fg(fgPatterns, {
       onlyFiles: true,
       unique: true,
       dot: true,
       absolute: true,
       suppressErrors: true,
-      ignore: source.excludePatterns.map(normalizeSafePath)
+      ignore: fgIgnores
     });
     return entries.sort();
   } catch (error) {
