@@ -15,12 +15,12 @@
     "maxJitterMs": 3600000,
     "uploadRetryIntervalMs": 300000,
     "housekeepingIntervalMs": 3600000,
-    "runScanOnStart": true,
+    "runScanOnStart": false,
     "gracefulShutdownTimeoutMs": 30000
   },
   "upload": {
-    "authEndpoint": "https://upload-api.paymore.internal/v1/kiosk/logs/authorize",
-    "staticToken": "your-static-token-here",
+    "authEndpoint": "https://pos-us-stage-backend.paymore.tech/api/v1/kiosk/logs/authorize",
+    "staticToken": "",
     "timeoutMs": 30000,
     "retry": {
       "maxAttempts": 4,

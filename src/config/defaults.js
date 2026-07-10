@@ -20,12 +20,12 @@ export const defaultConfig = {
     dailyRunTime: '02:00',
     uploadRetryIntervalMs: 300_000,
     housekeepingIntervalMs: 3_600_000,
-    runScanOnStart: true,
+    runScanOnStart: false,
     gracefulShutdownTimeoutMs: 30_000
   },
   upload: {
-    authEndpoint: 'http://localhost:8080/v1/kiosk/logs/authorize',
-    staticToken: undefined,
+    authEndpoint: 'https://pos-us-stage-backend.paymore.tech/api/v1/kiosk/logs/authorize',
+    staticToken: '',
     timeoutMs: 30_000,
     retry: {
       maxAttempts: 4,
