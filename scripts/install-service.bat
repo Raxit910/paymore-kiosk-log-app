@@ -5,7 +5,7 @@ setlocal
 :: Uses NSSM to install the executable as a Windows Service with graceful shutdown
 
 SET SERVICE_NAME=PaymoreLogAgent
-SET EXE_PATH="%~dp0..\dist\paymore-kiosk-log-agent.exe"
+SET EXE_PATH="%~dp0paymore-kiosk-log-agent.exe"
 SET NSSM_PATH="%~dp0nssm.exe"
 
 IF NOT EXIST %NSSM_PATH% (
@@ -36,15 +36,19 @@ echo Configuring automatic restart on crash...
 echo.
 echo === Configure Cloud Connection ===
 echo To securely connect this kiosk to your cloud servers, please provide the keys below.
+echo (Press Enter without typing to use the built-in defaults)
 echo.
-set /p AUTH_ENDPOINT="1. Paste the Auth Endpoint URL and press Enter: "
-set /p STATIC_TOKEN="2. Paste the Secret Token and press Enter: "
+set /p AUTH_ENDPOINT="1. Paste the Auth Endpoint URL (or press Enter to skip): "
+set /p STATIC_TOKEN="2. Paste the Secret Token (or press Enter to skip): "
 
 echo.
-echo Saving keys to System Environment Variables...
-setx PAYMORE_AGENT_UPLOAD_AUTH_ENDPOINT "%AUTH_ENDPOINT%" /M >nul
-setx PAYMORE_AGENT_UPLOAD_STATIC_TOKEN "%STATIC_TOKEN%" /M >nul
-
+echo Saving keys to System Environment Variables (if provided)...
+IF NOT "%AUTH_ENDPOINT%"=="" (
+    setx PAYMORE_AGENT_UPLOAD_AUTH_ENDPOINT "%AUTH_ENDPOINT%" /M >nul
+)
+IF NOT "%STATIC_TOKEN%"=="" (
+    setx PAYMORE_AGENT_UPLOAD_STATIC_TOKEN "%STATIC_TOKEN%" /M >nul
+)
 echo.
 echo Starting the background service...
 %NSSM_PATH% start %SERVICE_NAME%
