@@ -18,13 +18,14 @@ export const defaultConfig = {
   },
   scheduler: {
     dailyRunTime: '02:00',
+    maxJitterMs: 3_600_000,
     uploadRetryIntervalMs: 300_000,
     housekeepingIntervalMs: 3_600_000,
     runScanOnStart: false,
     gracefulShutdownTimeoutMs: 30_000
   },
   upload: {
-    authEndpoint: 'https://pos-us-stage-backend.paymore.tech/api/v1/kiosk/logs/authorize',
+    authEndpoint: 'https://pos-us-backend.paymore.tech/api/v1/kiosk/logs/authorize',
     staticToken: '',
     timeoutMs: 30_000,
     retry: {
@@ -44,8 +45,16 @@ export const defaultConfig = {
   },
   logSources: [
     {
-      name: 'application',
+      name: "kcf",
       enabled: true,
+      patterns: ["C:\\Kiosk\\Logs\\Kcf\\MachineReadable-*.log"],
+      excludePatterns: [],
+      encoding: "utf8",
+      readFromBeginning: false
+    },
+    {
+      name: 'application',
+      enabled: false ,
       patterns: ['C:\\Paymore\\Kiosk\\logs\\application*.log'],
       excludePatterns: [],
       encoding: 'utf8',
@@ -53,7 +62,7 @@ export const defaultConfig = {
     },
     {
       name: 'system',
-      enabled: true,
+      enabled: false,
       patterns: ['C:\\Paymore\\Kiosk\\logs\\system*.log'],
       excludePatterns: [],
       encoding: 'utf8',
@@ -61,7 +70,7 @@ export const defaultConfig = {
     },
     {
       name: 'pos',
-      enabled: true,
+      enabled: false,
       patterns: ['C:\\Paymore\\Kiosk\\logs\\pos*.log'],
       excludePatterns: [],
       encoding: 'utf8',
@@ -69,7 +78,7 @@ export const defaultConfig = {
     },
     {
       name: 'crash',
-      enabled: true,
+      enabled: false,
       patterns: ['C:\\Paymore\\Kiosk\\crashes\\*.log'],
       excludePatterns: [],
       encoding: 'utf8',

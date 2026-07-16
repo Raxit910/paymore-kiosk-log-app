@@ -29,9 +29,13 @@ echo Configuring graceful shutdown (CTRL+C)...
 %NSSM_PATH% set %SERVICE_NAME% AppStopMethodSkip 6
 %NSSM_PATH% set %SERVICE_NAME% AppStopMethodConsole 15000
 
-echo Configuring automatic restart on crash...
+echo Configuring automatic restart on crash (NSSM Level)...
 %NSSM_PATH% set %SERVICE_NAME% AppExit Default Restart
 %NSSM_PATH% set %SERVICE_NAME% AppRestartDelay 60000
+
+echo Configuring Windows Recovery (OS Level)...
+sc failure %SERVICE_NAME% reset= 86400 actions= restart/60000/restart/60000/restart/60000 >nul
+sc failureflag %SERVICE_NAME% 1 >nul
 
 echo.
 echo === Configure Cloud Connection ===

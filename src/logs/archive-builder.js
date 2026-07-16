@@ -20,7 +20,8 @@ export async function buildArchive(signal) {
     return;
   }
 
-  const archiveName = `kiosk-logs-${Date.now()}.zip`;
+  const dateStr = new Date().toISOString().split('T')[0];
+  const archiveName = `${dateStr}-kiosk-logs.zip`;
   const pendingDir = config.queue.directory;
   await ensureDirectory(pendingDir);
 

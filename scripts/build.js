@@ -18,7 +18,7 @@ async function main() {
     entryPoints: ['src/index.js'],
     bundle: true,
     platform: 'node',
-    target: 'node20',
+    target: 'node24',
     outfile: bundlePath,
     format: 'cjs',
     // We bundle everything. If any native modules exist, they would go in external.
@@ -27,7 +27,7 @@ async function main() {
 
   console.log('Packaging with @yao-pkg/pkg...');
   // Package the bundled file into a standalone Windows executable
-  await exec([bundlePath, '--target', 'node20-win-x64', '--output', exePath]);
+  await exec([bundlePath, '--target', 'node24-win-x64', '--output', exePath]);
 
   console.log(`Build complete! Executable generated at: ${exePath}`);
 }
